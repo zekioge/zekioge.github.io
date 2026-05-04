@@ -1,350 +1,852 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZekiOge — Akıllı Uygulamalar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codoge — Mobil Uygulama Stüdyosu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --navy: #0F3460;
-    --dark: #16213E;
-    --blue: #0EA5E9;
-    --light-blue: #38BDF8;
-    --bg: #F0F9FF;
-    --white: #ffffff;
-  }
+    :root {
+      --navy:    #1D2659;
+      --blue:    #2E3C8C;
+      --accent:  #4E63D9;
+      --light:   #DFE5F2;
+      --dark:    #0D0D0D;
+      --white:   #ffffff;
+    }
 
-  html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--dark);
-    color: var(--white);
-    overflow-x: hidden;
-  }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 5%;
-    background: rgba(22,33,62,0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(14,165,233,0.15);
-  }
-  .logo {
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    color: var(--white);
-    text-decoration: none;
-    letter-spacing: -0.02em;
-  }
-  .logo span { color: var(--blue); }
-  nav ul { list-style: none; display: flex; gap: 2rem; }
-  nav ul a {
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 300;
-    transition: color 0.2s;
-  }
-  nav ul a:hover { color: var(--light-blue); }
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(13,13,13,0.72);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(78,99,217,0.15);
+    }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center;
-    padding: 8rem 5% 4rem;
-    position: relative;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(14,165,233,0.18) 0%, transparent 70%),
-                linear-gradient(180deg, var(--dark) 0%, var(--navy) 100%);
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(14,165,233,0.08) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(56,189,248,0.06) 0%, transparent 35%);
-    pointer-events: none;
-  }
-  .hero-grid {
-    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(14,165,233,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(14,165,233,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-  }
-  .hero-content { position: relative; z-index: 1; max-width: 760px; }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: rgba(14,165,233,0.12);
-    border: 1px solid rgba(14,165,233,0.3);
-    border-radius: 100px;
-    padding: 0.4rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: var(--light-blue);
-    margin-bottom: 2rem;
-    letter-spacing: 0.04em;
-  }
-  .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
 
-  h1 {
-    font-family: 'Sora', sans-serif;
-    font-size: clamp(2.8rem, 7vw, 5.5rem);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.5rem;
-  }
-  h1 .accent { color: var(--blue); }
-  .hero p {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    font-weight: 300;
-    color: rgba(255,255,255,0.6);
-    max-width: 520px;
-    margin: 0 auto 3rem;
-    line-height: 1.7;
-  }
-  .hero-cta {
-    display: inline-flex; align-items: center; gap: 0.6rem;
-    background: var(--blue);
-    color: var(--white);
-    padding: 0.9rem 2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-family: 'Sora', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .hero-cta:hover { background: var(--light-blue); transform: translateY(-2px); }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
 
-  /* APPS SECTION */
-  .section {
-    padding: 6rem 5%;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .section-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    color: var(--blue);
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-  .section-title {
-    font-family: 'Sora', sans-serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-  .section-sub {
-    color: rgba(255,255,255,0.5);
-    font-weight: 300;
-    font-size: 1rem;
-    margin-bottom: 3.5rem;
-    max-width: 480px;
-  }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--accent);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: #3a50c8; transform: translateY(-1px); }
 
-  .apps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  .app-card {
-    background: rgba(15,52,96,0.4);
-    border: 1px solid rgba(14,165,233,0.15);
-    border-radius: 16px;
-    padding: 2rem;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.3s, transform 0.3s, background 0.3s;
-    display: block;
-  }
-  .app-card:hover {
-    border-color: rgba(14,165,233,0.5);
-    background: rgba(15,52,96,0.7);
-    transform: translateY(-4px);
-  }
-  .app-icon {
-    width: 56px; height: 56px;
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.6rem;
-    margin-bottom: 1.25rem;
-  }
-  .app-name {
-    font-family: 'Sora', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-  }
-  .app-desc {
-    font-size: 0.875rem;
-    color: rgba(255,255,255,0.5);
-    font-weight: 300;
-    line-height: 1.6;
-    margin-bottom: 1.25rem;
-  }
-  .app-tag {
-    display: inline-block;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.25rem 0.75rem;
-    border-radius: 100px;
-    background: rgba(14,165,233,0.12);
-    color: var(--light-blue);
-    border: 1px solid rgba(14,165,233,0.2);
-  }
-  .app-arrow {
-    float: right;
-    color: rgba(255,255,255,0.2);
-    font-size: 1.2rem;
-    transition: color 0.2s, transform 0.2s;
-  }
-  .app-card:hover .app-arrow { color: var(--blue); transform: translateX(4px); }
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
 
-  /* ABOUT */
-  .about-wrap {
-    background: rgba(15,52,96,0.25);
-    border-top: 1px solid rgba(14,165,233,0.1);
-    border-bottom: 1px solid rgba(14,165,233,0.1);
-    padding: 6rem 5%;
-  }
-  .about-inner {
-    max-width: 1100px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
-  }
-  .about-inner p {
-    color: rgba(255,255,255,0.55);
-    font-weight: 300;
-    line-height: 1.8;
-    font-size: 1rem;
-    margin-top: 1rem;
-  }
-  .values {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-  }
-  .value-item {
-    background: rgba(14,165,233,0.06);
-    border: 1px solid rgba(14,165,233,0.12);
-    border-radius: 12px;
-    padding: 1.25rem;
-  }
-  .value-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
-  .value-title { font-family: 'Sora', sans-serif; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
-  .value-desc { font-size: 0.8rem; color: rgba(255,255,255,0.45); font-weight: 300; line-height: 1.5; }
+    /* grid bg */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(78,99,217,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(78,99,217,0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
 
-  /* FOOTER */
-  footer {
-    padding: 3rem 5%;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 1rem;
-    max-width: 1100px; margin: 0 auto;
-  }
-  footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); font-weight: 300; }
-  footer a { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 0.8rem; }
-  footer a:hover { color: var(--light-blue); }
-  .footer-links { display: flex; gap: 1.5rem; }
+    /* glow orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(46,60,140,0.55) 0%, transparent 70%);
+      top: -100px; left: -100px;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(78,99,217,0.35) 0%, transparent 70%);
+      bottom: 0; right: -80px;
+    }
 
-  @media (max-width: 768px) {
-    nav ul { display: none; }
-    .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    .values { grid-template-columns: 1fr; }
-  }
-</style>
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(78,99,217,0.4);
+      padding: 6px 16px;
+      border-radius: 99px;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(1.4); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .hero h1 .accent-word {
+      color: var(--accent);
+      position: relative;
+    }
+    .hero h1 .accent-word::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      opacity: .4;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      max-width: 520px;
+      margin: 24px auto 0;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 44px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-primary {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--accent);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-primary:hover {
+      background: #3a50c8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(78,99,217,0.4);
+    }
+
+    .btn-secondary {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 14px 32px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.4);
+      color: var(--white);
+    }
+
+    /* stats strip */
+    .stats-strip {
+      display: flex;
+      gap: 0;
+      margin-top: 80px;
+      position: relative;
+      z-index: 1;
+      border: 1px solid rgba(78,99,217,0.2);
+      border-radius: 14px;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      background: rgba(29,38,89,0.25);
+    }
+    .stat-item {
+      flex: 1;
+      padding: 22px 36px;
+      text-align: center;
+      border-right: 1px solid rgba(78,99,217,0.2);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+      letter-spacing: .5px;
+    }
+
+    /* ─── SECTION COMMON ──────────────────────────────── */
+    section { padding: 100px 60px; }
+
+    .section-tag {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      color: var(--white);
+      max-width: 600px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.45);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+
+    /* ─── FEATURES ────────────────────────────────────── */
+    .features { background: #0f0f0f; }
+
+    .features-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: rgba(29,38,89,0.18);
+      border: 1px solid rgba(78,99,217,0.18);
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: border-color .25s, transform .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .feature-card:hover {
+      border-color: rgba(78,99,217,0.5);
+      transform: translateY(-4px);
+    }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(78,99,217,0.15);
+      border: 1px solid rgba(78,99,217,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .feature-icon svg { width: 22px; height: 22px; }
+
+    .feature-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+    }
+
+    /* ─── APPS (placeholder) ──────────────────────────── */
+    .apps { background: var(--dark); }
+
+    .apps-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .app-card {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(78,99,217,0.18);
+      background: #111117;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .app-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(78,99,217,0.2);
+    }
+
+    .app-card-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .app-card-thumb .placeholder-icon {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: rgba(78,99,217,0.25);
+      border: 1px solid rgba(78,99,217,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .app-card-thumb .placeholder-icon svg {
+      width: 28px; height: 28px;
+      color: var(--accent);
+    }
+
+    .app-card-thumb.bg1 { background: linear-gradient(135deg, #1D2659 0%, #0D0D0D 100%); }
+    .app-card-thumb.bg2 { background: linear-gradient(135deg, #2E3C8C 0%, #0D0D0D 100%); }
+    .app-card-thumb.bg3 { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+
+    .app-card-body {
+      padding: 20px 22px 22px;
+    }
+    .app-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .app-tag {
+      font-size: 11px;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .app-platform {
+      display: flex;
+      gap: 6px;
+    }
+    .platform-badge {
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .app-card-body h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .app-card-body p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+    }
+    .app-card-footer {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .app-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap .15s;
+    }
+    .app-link:hover { gap: 8px; }
+
+    /* coming soon card */
+    .app-card.coming-soon { opacity: .45; pointer-events: none; }
+    .coming-badge {
+      font-size: 11px;
+      letter-spacing: .5px;
+      color: rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+
+    /* ─── CTA ─────────────────────────────────────────── */
+    .cta-section {
+      background: #0f0f0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cta-box {
+      max-width: 720px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid rgba(78,99,217,0.25);
+      border-radius: 24px;
+      padding: 64px 48px;
+      background: rgba(29,38,89,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(78,99,217,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-box h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .cta-box p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 36px;
+      position: relative;
+    }
+    .cta-box .btn-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      padding: 40px 60px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--accent); }
+
+    footer p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ─── ANIMATIONS ──────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 70px 24px; }
+      .features-grid, .apps-grid { grid-template-columns: 1fr; }
+      .features-header, .apps-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .stats-strip { flex-direction: column; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(78,99,217,0.2); }
+      .stat-item:last-child { border-bottom: none; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo">Zeki<span>oge</span></a>
-  <ul>
-    <li><a href="#uygulamalar">Uygulamalar</a></li>
-    <li><a href="#hakkimizda">Hakkımızda</a></li>
-    <li><a href="mailto:info@zekioge.com">İletişim</a></li>
-  </ul>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">co<span>do</span>ge</a>
+    <ul class="nav-links">
+      <li><a href="#uygulamalar">Uygulamalar</a></li>
+      <li><a href="#hakkimizda">Hakkımızda</a></li>
+      <li><a href="#iletisim">İletişim</a></li>
+    </ul>
+    <a href="#uygulamalar" class="nav-cta">Uygulamalara Bak</a>
+  </nav>
 
-<section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge">Mobil Uygulamalar</div>
-    <h1>Hayatınızı<br><span class="accent">kolaylaştıran</span><br>uygulamalar</h1>
-    <p>Zekioge olarak günlük hayatı daha akıllı, daha düzenli ve daha keyifli hale getiren uygulamalar geliştiriyoruz.</p>
-    <a href="#uygulamalar" class="hero-cta">Uygulamaları Keşfet →</a>
-  </div>
-</section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
 
-<div class="section" id="uygulamalar">
-  <div class="section-label">Ürünlerimiz</div>
-  <h2 class="section-title">Uygulamalarımız</h2>
-  <p class="section-sub">Her uygulama, gerçek bir ihtiyaçtan doğar ve sadeliği ön planda tutar.</p>
+    <div class="hero-badge">Mobil Uygulama Stüdyosu</div>
 
-  <div class="apps-grid">
-    <a href="mutfak-defteri/" class="app-card">
-      <div class="app-icon" style="background: rgba(234,88,12,0.15);">🍳</div>
-      <span class="app-arrow">→</span>
-      <div class="app-name">Mutfak Defteri</div>
-      <div class="app-desc">Tariflerinizi not alın, düzenleyin ve her zaman yanınızda taşıyın.</div>
-      <span class="app-tag">Yemek & Tarifler</span>
-    </a>
-  </div>
-</div>
+    <h1>Fikirler <span class="accent-word">Uygulamaya</span><br/>Dönüştürülür</h1>
 
-<div class="about-wrap" id="hakkimizda">
-  <div class="about-inner">
-    <div>
-      <div class="section-label">Hakkımızda</div>
-      <h2 class="section-title">Neden ZekiOge?</h2>
-      <p>Günlük hayatın karmaşıklığını azaltmak için tasarlanmış, kullanımı kolay ve işlevsel mobil uygulamalar geliştiriyoruz. Her ürünümüzde sadelik, güvenilirlik ve kullanıcı deneyimi ön plandadır.</p>
+    <p class="hero-sub">
+      iOS ve Android için sade, hızlı ve işlevsel mobil uygulamalar tasarlıyor ve geliştiriyoruz.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#uygulamalar" class="btn-primary">Uygulamaları Keşfet</a>
+      <a href="#iletisim" class="btn-secondary">İletişime Geç</a>
     </div>
-    <div class="values">
-      <div class="value-item">
-        <div class="value-icon">✦</div>
-        <div class="value-title">Sadelik</div>
-        <div class="value-desc">Karmaşıklık değil, netlik. Her özellik bir amaca hizmet eder.</div>
+
+    <div class="stats-strip">
+      <div class="stat-item">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Uygulama</div>
       </div>
-      <div class="value-item">
-        <div class="value-icon">◈</div>
-        <div class="value-title">Güvenilirlik</div>
-        <div class="value-desc">Verileriniz güvende, uygulama her zaman çalışır.</div>
+      <div class="stat-item">
+        <div class="stat-num">iOS & Android</div>
+        <div class="stat-label">Platform</div>
       </div>
-      <div class="value-item">
-        <div class="value-icon">◎</div>
-        <div class="value-title">Kullanıcı Odaklı</div>
-        <div class="value-desc">Tasarım kararlarında kullanıcı her zaman merkezdedir.</div>
+      <div class="stat-item">
+        <div class="stat-num">5★</div>
+        <div class="stat-label">Ortalama Puan</div>
       </div>
-      <div class="value-item">
-        <div class="value-icon">⬡</div>
-        <div class="value-title">Sürekli Gelişim</div>
-        <div class="value-desc">Geri bildirimlerle büyür, her güncellemeyle iyileşiriz.</div>
+      <div class="stat-item">
+        <div class="stat-num">2024</div>
+        <div class="stat-label">Kuruluş</div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<footer>
-  <a href="/" class="logo" style="font-size:1.1rem">Zeki<span style="color:#0EA5E9">oge</span></a>
-  <p>© 2026 Zekioge. Tüm hakları saklıdır.</p>
-  <div class="footer-links">
-    <a href="mutfak-defteri/gizlilik.html">Gizlilik Politikası</a>
-    <a href="mutfak-defteri/kullanim-kosullari.html">Kullanım Koşulları</a>
-  </div>
-</footer>
+  <!-- FEATURES -->
+  <section class="features" id="hakkimizda">
+    <div class="features-header fade-up">
+      <div>
+        <div class="section-tag">Neden Codoge?</div>
+        <h2 class="section-heading">Kullanıcı önce gelir, her zaman</h2>
+      </div>
+      <p class="section-sub">Her uygulama, gerçek bir ihtiyacı karşılamak için tasarlandı. Şişirilmiş özellikler yok, sade ve odaklı deneyimler var.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card fade-up">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4E63D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2"/>
+            <path d="M12 18h.01"/>
+          </svg>
+        </div>
+        <h3>Native Deneyim</h3>
+        <p>Her platform için ayrı ayrı optimize edilmiş, akıcı ve doğal hissettiren arayüzler.</p>
+      </div>
+
+      <div class="feature-card fade-up" style="transition-delay:.1s">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4E63D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <h3>Hız Odaklı</h3>
+        <p>Gereksiz animasyon ve işlem yok. Uygulamalarımız hızlı açılır, hızlı yanıt verir.</p>
+      </div>
+
+      <div class="feature-card fade-up" style="transition-delay:.2s">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4E63D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>Gizlilik</h3>
+        <p>Kullanıcı verileri cihazda kalır. Gereksiz izin istenmez, izleme yapılmaz.</p>
+      </div>
+
+      <div class="feature-card fade-up" style="transition-delay:.05s">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4E63D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
+          </svg>
+        </div>
+        <h3>Çok Dilli Destek</h3>
+        <p>Türkçe ve İngilizce başta olmak üzere birden fazla dil desteği her uygulamada standart.</p>
+      </div>
+
+      <div class="feature-card fade-up" style="transition-delay:.15s">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4E63D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3>Süregelen Destek</h3>
+        <p>Yayın sonrası güncelleme ve kullanıcı geri bildirimlerine dayalı iyileştirmeler düzenli sürer.</p>
+      </div>
+
+      <div class="feature-card fade-up" style="transition-delay:.25s">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4E63D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3>Analitik Yok</h3>
+        <p>Üçüncü taraf takip SDK'sı kullanmıyoruz. Uygulamalar sadece kullanıcıya çalışır.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- APPS -->
+  <section class="apps" id="uygulamalar">
+    <div class="apps-header fade-up">
+      <div>
+        <div class="section-tag">Uygulamalar</div>
+        <h2 class="section-heading">Yaptıklarımıza göz at</h2>
+      </div>
+      <p class="section-sub">Her uygulama, gerçek bir problemi çözmek için sıfırdan tasarlandı.</p>
+    </div>
+
+    <div class="apps-grid">
+
+      <!-- Placeholder App 1 -->
+      <div class="app-card fade-up">
+        <div class="app-card-thumb bg1">
+          <div class="placeholder-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#4E63D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/>
+              <path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+              <path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/>
+              <path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/>
+              <path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/>
+              <path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/>
+              <path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/>
+              <path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="app-card-body">
+          <div class="app-card-meta">
+            <span class="app-tag">Verimlilik</span>
+            <div class="app-platform">
+              <span class="platform-badge">iOS</span>
+              <span class="platform-badge">Android</span>
+            </div>
+          </div>
+          <h3>Uygulama Adı</h3>
+          <p>Buraya uygulama kısa açıklaması gelecek. Çok yakında ekleyeceğiz.</p>
+          <div class="app-card-footer">
+            <a href="#" class="app-link">İncele →</a>
+            <span style="font-size:12px;color:rgba(255,255,255,0.3);">★★★★★</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Placeholder App 2 -->
+      <div class="app-card fade-up" style="transition-delay:.1s">
+        <div class="app-card-thumb bg2">
+          <div class="placeholder-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#4E63D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+        </div>
+        <div class="app-card-body">
+          <div class="app-card-meta">
+            <span class="app-tag">Yaşam Tarzı</span>
+            <div class="app-platform">
+              <span class="platform-badge">iOS</span>
+            </div>
+          </div>
+          <h3>Uygulama Adı</h3>
+          <p>Buraya uygulama kısa açıklaması gelecek. Çok yakında ekleyeceğiz.</p>
+          <div class="app-card-footer">
+            <a href="#" class="app-link">İncele →</a>
+            <span style="font-size:12px;color:rgba(255,255,255,0.3);">★★★★★</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coming Soon -->
+      <div class="app-card coming-soon fade-up" style="transition-delay:.2s">
+        <div class="app-card-thumb bg3">
+          <div class="placeholder-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#4E63D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+            </svg>
+          </div>
+        </div>
+        <div class="app-card-body">
+          <div class="app-card-meta">
+            <span class="app-tag">Finans</span>
+            <span class="coming-badge">Yakında</span>
+          </div>
+          <h3>Yeni Uygulama</h3>
+          <p>Çok yakında yayında. Takipte kalın.</p>
+          <div class="app-card-footer">
+            <span style="font-size:13px;color:rgba(255,255,255,0.2);">Geliştiriliyor...</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="iletisim">
+    <div class="cta-box fade-up">
+      <h2>Bir fikrin mi var?</h2>
+      <p>Birlikte konuşalım. Proje fikirleri, işbirliği teklifleri ve her türlü soru için buradayız.</p>
+      <div class="btn-row">
+        <a href="mailto:hello@codoge.com" class="btn-primary">Mesaj Gönder</a>
+        <a href="https://github.com/codoge" target="_blank" class="btn-secondary">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="footer-logo">co<span>do</span>ge</a>
+    <p>© 2024 Codoge. Tüm hakları saklıdır.</p>
+    <ul class="footer-links">
+      <li><a href="#">Gizlilik</a></li>
+      <li><a href="#">Koşullar</a></li>
+      <li><a href="mailto:hello@codoge.com">İletişim</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  </script>
 
 </body>
 </html>
