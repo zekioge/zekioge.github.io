@@ -27,20 +27,6 @@
       background: var(--c1);
       color: #fff;
       overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* CURSOR */
-    .cursor {
-      position: fixed; width: 10px; height: 10px;
-      background: var(--c5); border-radius: 50%;
-      pointer-events: none; z-index: 9999;
-      mix-blend-mode: screen; transition: transform .1s;
-    }
-    .cursor-ring {
-      position: fixed; width: 36px; height: 36px;
-      border: 1.5px solid rgba(78,99,217,0.6); border-radius: 50%;
-      pointer-events: none; z-index: 9998; transition: all .15s ease;
     }
 
     /* BACKGROUND */
@@ -101,7 +87,7 @@
     .nav-cta {
       font-size: 13px; font-weight: 600; color: #fff;
       background: var(--c5); border: none; padding: 9px 22px; border-radius: 99px;
-      text-decoration: none; white-space: nowrap; transition: all .2s; cursor: none;
+      text-decoration: none; white-space: nowrap; transition: all .2s;
     }
     .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(78,99,217,0.5); }
 
@@ -122,9 +108,10 @@
       animation: fadeDown .8s ease both;
     }
     .edot {
-      width: 6px; height: 6px; background: var(--c5); border-radius: 50%;
+      width: 7px; height: 7px; background: var(--c5); border-radius: 50%;
       box-shadow: 0 0 8px var(--c5), 0 0 20px rgba(78,99,217,0.6);
       animation: glowPulse 2s ease-in-out infinite;
+      flex-shrink: 0;
     }
     @keyframes glowPulse {
       0%,100% { box-shadow: 0 0 6px var(--c5), 0 0 16px rgba(78,99,217,0.5); }
@@ -163,7 +150,7 @@
     .btn-glow {
       font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600;
       color: #fff; background: var(--c5); border: none; padding: 15px 36px;
-      border-radius: 14px; cursor: none; text-decoration: none; transition: all .25s;
+      border-radius: 14px; text-decoration: none; transition: all .25s;
     }
     .btn-glow:hover {
       transform: translateY(-3px);
@@ -174,7 +161,7 @@
       color: rgba(255,255,255,0.7);
       background: rgba(29,38,89,0.25); border: 1px solid rgba(78,99,217,0.2);
       backdrop-filter: blur(20px); padding: 15px 36px; border-radius: 14px;
-      cursor: none; text-decoration: none; transition: all .25s;
+      text-decoration: none; transition: all .25s;
     }
     .btn-glass:hover {
       color: #fff; border-color: rgba(78,99,217,0.5);
@@ -202,26 +189,7 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    .scroll-hint {
-      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      animation: fadeUp 1s ease .7s both;
-    }
-    .scroll-hint span {
-      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: rgba(255,255,255,0.18); font-family: 'JetBrains Mono', monospace;
-    }
-    .scroll-line {
-      width: 1px; height: 44px;
-      background: linear-gradient(to bottom, rgba(78,99,217,0.6), transparent);
-      animation: scrollAnim 1.6s ease-in-out infinite;
-    }
-    @keyframes scrollAnim {
-      0% { transform: scaleY(0); transform-origin: top; }
-      50% { transform: scaleY(1); transform-origin: top; }
-      51% { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; }
-    }
+
 
     /* SECTIONS */
     section { padding: 100px 60px; position: relative; z-index: 1; }
@@ -396,9 +364,6 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <div class="bg-wrap">
   <div class="bg-grid"></div>
   <div class="bg-orb bg-orb-1"></div>
@@ -432,11 +397,10 @@
     </div>
     <div class="hero-stats">
       <div class="stat"><div class="stat-val">10<em>+</em></div><div class="stat-lbl">Uygulama</div></div>
-      <div class="stat"><div class="stat-val">iOS <em>&</em> Android</div><div class="stat-lbl">Platform</div></div>
+      <div class="stat"><div class="stat-val">iOS <div class="stat-lbl">Platform</div></div>
       <div class="stat"><div class="stat-val">5<em>★</em></div><div class="stat-lbl">Ortalama Puan</div></div>
-      <div class="stat"><div class="stat-val">2024</div><div class="stat-lbl">Kuruluş</div></div>
+      <div class="stat"><div class="stat-val">2025</div><div class="stat-lbl">Kuruluş</div></div>
     </div>
-    <div class="scroll-hint"><span>scroll</span><div class="scroll-line"></div></div>
   </section>
 
   <section class="features" id="hakkimizda">
@@ -543,8 +507,8 @@
 </main>
 
 <footer>
-  <a href="#" class="foot-logo">co<span class="dot">.</span>doge</a>
-  <p>© 2024 Codoge. Tüm hakları saklıdır.</p>
+  <a href="#" class="nav-logo">codoge<span class="dot">.</span></a>
+  <p>© 2025 Codoge. Tüm hakları saklıdır. Creative by zekiöge</p>
   <ul class="foot-links">
     <li><a href="#">Gizlilik</a></li>
     <li><a href="#">Koşullar</a></li>
@@ -553,20 +517,6 @@
 </footer>
 
 <script>
-  const cur = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  (function animCursor(){
-    cur.style.left=mx-5+'px'; cur.style.top=my-5+'px';
-    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-    ring.style.left=rx-18+'px'; ring.style.top=ry-18+'px';
-    requestAnimationFrame(animCursor);
-  })();
-  document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ring.style.transform='scale(1.8)';ring.style.borderColor='rgba(78,99,217,0.9)';});
-    el.addEventListener('mouseleave',()=>{ring.style.transform='scale(1)';ring.style.borderColor='rgba(78,99,217,0.6)';});
-  });
   const obs=new IntersectionObserver(entries=>{
     entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
   },{threshold:.1});
